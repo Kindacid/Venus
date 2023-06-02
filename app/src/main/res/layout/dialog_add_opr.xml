@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    android:layoutDirection="ltr"
+    app:cardBackgroundColor="@android:color/white"
+    app:cardCornerRadius="5dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="10dp"
+        android:background="#B3D5D2">
+
+        <EditText
+            android:id="@+id/textAddName"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_gravity="center"
+            android:layout_margin="3dp"
+            android:background="@drawable/dialog_add_opr_bg"
+            android:gravity="center"
+            android:hint="Nome do Operador"
+            android:padding="5dp"
+            android:textColor="@android:color/white"
+            android:textColorHint="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold|italic" />
+
+        <EditText
+            android:id="@+id/textAddEmail"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_gravity="center"
+            android:layout_margin="3dp"
+            android:background="@drawable/dialog_add_opr_bg"
+            android:gravity="center"
+            android:hint="Email do Operador"
+            android:inputType="textEmailAddress"
+            android:padding="5dp"
+            android:textColor="@android:color/white"
+            android:textColorHint="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/textAddUser"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_gravity="center"
+            android:layout_margin="3dp"
+            android:background="@drawable/dialog_add_opr_bg"
+            android:gravity="center"
+            android:hint="Usuário do Operador"
+            android:padding="5dp"
+            android:textColor="@android:color/white"
+            android:textColorHint="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+        <EditText
+            android:id="@+id/textAddPassword"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_gravity="center"
+            android:layout_margin="3dp"
+            android:background="@drawable/dialog_add_opr_bg"
+            android:gravity="center"
+            android:hint="Senha do Operador"
+            android:padding="5dp"
+            android:textColor="@android:color/white"
+            android:textColorHint="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/buttonDialogAddOpr"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="15sp"
+            android:background="@drawable/btn_round_blue"
+            android:text="Adicionar"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold|italic" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/buttonDialogCancelOpr"
+            android:layout_width="match_parent"
+            android:layout_height="50sp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/btn_round_red"
+            android:text="Sair"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold|italic" />
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

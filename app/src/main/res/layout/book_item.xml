@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="@drawable/operator_item_bg"
+    android:padding="4sp"
+    android:layout_margin="4sp"
+    android:orientation="vertical"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/textBookName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:text="Titulo"/>
+
+    <TextView
+        android:id="@+id/textAutor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textStyle="bold|italic"
+        android:textSize="18sp"
+        android:text="Autor"/>
+
+    <TextView
+        android:id="@+id/textEditora"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textStyle="bold|italic"
+        android:textSize="18sp"
+        android:text="Editora"/>
+
+    <TextView
+        android:id="@+id/textNumPag"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textStyle="bold|italic"
+        android:textSize="18sp"
+        android:text="Numero de Páginas"/>
+
+    <TextView
+        android:id="@+id/textOndeEnc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textStyle="bold|italic"
+        android:textSize="18sp"
+        android:text="Onde Encontrar"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_margin="4sp"
+        android:padding="4sp"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/buttonDeleteBook"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_margin="3dp"
+            android:layout_weight="1"
+            android:background="@drawable/btn_round_red"
+            android:text="DELETE"
+            android:textColor="@color/black" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/buttonUpdateBook"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_margin="3dp"
+            android:layout_weight="1"
+            android:background="@drawable/btn_round_blue"
+            android:text="UPDATE"
+            android:textColor="@color/black" />
+
+    </LinearLayout>
+</LinearLayout>
