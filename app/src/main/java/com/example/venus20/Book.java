@@ -4,18 +4,18 @@ public class Book {
     private String titulo;
     private String editor;
     private String author;
-    private String pagNum;
+    private String genero;
     private String ondeEnc;
     private String bookID;
 
     public Book(){}
 
-    public Book(String bookID, String titulo, String editor, String author, String pagNum, String ondeEnc) {
+    public Book(String bookID, String titulo, String editor, String author, String genero, String ondeEnc) {
         this.bookID = bookID;
         this.titulo = titulo;
         this.editor = editor;
         this.author = author;
-        this.pagNum = pagNum;
+        this.genero = genero;
         this.ondeEnc = ondeEnc;
     }
 
@@ -54,12 +54,12 @@ public class Book {
         this.author = author;
     }
 
-    public String getPagNum() {
-        return pagNum;
+    public String getGenero() {
+        return genero;
     }
 
-    public void setPagNum(String pagNum) {
-        this.pagNum = pagNum;
+    public void setGenero(String genero) {
+        this.genero = genero;
     }
 
     public String getOndeEnc() {

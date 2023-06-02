@@ -63,14 +63,14 @@
             android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/textNumPag"
+            android:id="@+id/textGenero"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_gravity="center"
             android:layout_margin="3dp"
             android:background="@drawable/dialog_add_opr_bg"
             android:gravity="center"
-            android:hint="Número de Páginas"
+            android:hint="Genero"
             android:inputType="text"
             android:padding="5dp"
             android:textColor="@android:color/white"

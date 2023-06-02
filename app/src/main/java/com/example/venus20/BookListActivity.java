@@ -74,7 +74,7 @@ public class BookListActivity extends AppCompatActivity {
 
     private void readData() {
 
-        databaseReference.child("LIVROS").orderByChild("nomeLivro").addValueEventListener(new ValueEventListener() {
+        databaseReference.child("LIVROS").orderByChild("LIVRO").addValueEventListener(new ValueEventListener() {
             @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -105,7 +105,7 @@ public class BookListActivity extends AppCompatActivity {
             EditText texBookName = dialog.findViewById(R.id.textBookName);
             EditText textAutor = dialog.findViewById(R.id.textAutor);
             EditText textEditora = dialog.findViewById(R.id.textEditora);
-            EditText textNumPag = dialog.findViewById(R.id.textNumPag);
+            EditText textGenero = dialog.findViewById(R.id.textGenero);
             EditText textOndeEnc = dialog.findViewById(R.id.textOndeEnc);
 
             Button buttonDialogAddBook = dialog.findViewById(R.id.buttonDialogAddBook);
@@ -127,13 +127,13 @@ public class BookListActivity extends AppCompatActivity {
                     String titulo = texBookName.getText().toString();
                     String autor = textAutor.getText().toString();
                     String editora = textEditora.getText().toString();
-                    String numPag = textNumPag.getText().toString();
+                    String genero = textGenero.getText().toString();
                     String ondeEnc = textOndeEnc.getText().toString();
 
                     if (titulo.isEmpty() || autor.isEmpty() || editora.isEmpty()) {
                         Toast.makeText(context, "Preencha os campos obrigatórios (*)", Toast.LENGTH_SHORT).show();
                     } else {
-                        databaseReference.child("LIVROS").child(bookId).setValue(new Book(bookId, titulo, autor, editora, numPag, ondeEnc));
+                        databaseReference.child("LIVROS").child(bookId).setValue(new Book(bookId, titulo, autor, editora, genero, ondeEnc));
 
 
                         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));

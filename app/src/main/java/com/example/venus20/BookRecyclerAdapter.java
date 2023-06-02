@@ -49,14 +49,14 @@ public class BookRecyclerAdapter extends RecyclerView.Adapter<BookRecyclerAdapte
         holder.textBookName.setText("Titulo: " + books.getTitulo());
         holder.textAutor.setText("Autor(a): " + books.getAuthor());
         holder.textEditora.setText("Editora: " + books.getEditor());
-        holder.textNumPag.setText("Número de Páginas: " + books.getPagNum());
+        holder.textGenero.setText("Número de Páginas: " + books.getGenero());
         holder.textOndeEnc.setText("Onde encontrar: " + books.getOndeEnc());
 
         holder.buttonUpdateBook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ViewDialogAddUpdate viewDialogAddUpdate = new ViewDialogAddUpdate();
-                viewDialogAddUpdate.showDialog(context, books.getBookID(), books.getTitulo(), books.getAuthor(), books.getEditor(), books.getPagNum(), books.getOndeEnc());
+                viewDialogAddUpdate.showDialog(context, books.getBookID(), books.getTitulo(), books.getAuthor(), books.getEditor(), books.getGenero(), books.getOndeEnc());
             }
         });
 
@@ -79,7 +79,7 @@ public class BookRecyclerAdapter extends RecyclerView.Adapter<BookRecyclerAdapte
         TextView textBookName;
         TextView textAutor;
         TextView textEditora;
-        TextView textNumPag;
+        TextView textGenero;
         TextView textOndeEnc;
 
         Button buttonDeleteBook;
@@ -92,7 +92,7 @@ public class BookRecyclerAdapter extends RecyclerView.Adapter<BookRecyclerAdapte
             textBookName = itemView.findViewById(R.id.textBookName);
             textAutor = itemView.findViewById(R.id.textAutor);
             textEditora = itemView.findViewById(R.id.textEditora);
-            textNumPag = itemView.findViewById(R.id.textNumPag);
+            textGenero = itemView.findViewById(R.id.textGenero);
             textOndeEnc = itemView.findViewById(R.id.textOndeEnc);
 
 
@@ -102,7 +102,7 @@ public class BookRecyclerAdapter extends RecyclerView.Adapter<BookRecyclerAdapte
     }
 
     public class ViewDialogAddUpdate {
-        public void showDialog(Context context, String bookId, String titulo, String autor, String editora, String numPag, String ondeEnc) {
+        public void showDialog(Context context, String bookId, String titulo, String autor, String editora, String genero, String ondeEnc) {
             final Dialog dialog = new Dialog(context);
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
             dialog.setContentView(R.layout.dialog_add_book);
@@ -110,14 +110,14 @@ public class BookRecyclerAdapter extends RecyclerView.Adapter<BookRecyclerAdapte
             EditText textBookName = dialog.findViewById(R.id.textBookName);
             EditText textAutor = dialog.findViewById(R.id.textAutor);
             EditText textEditora = dialog.findViewById(R.id.textEditora);
-            EditText textNumPag = dialog.findViewById(R.id.textNumPag);
+            EditText textGenero = dialog.findViewById(R.id.textGenero);
             EditText textOndeEnc = dialog.findViewById(R.id.textOndeEnc);
 
 
             textBookName.setText(titulo);
             textAutor.setText(autor);
             textEditora.setText(editora);
-            textNumPag.setText(numPag);
+            textGenero.setText(genero);
             textOndeEnc.setText(ondeEnc);
 
             Button buttonDialogAddBook = dialog.findViewById(R.id.buttonDialogAddBook);
@@ -137,16 +137,16 @@ public class BookRecyclerAdapter extends RecyclerView.Adapter<BookRecyclerAdapte
                     String novoTitulo = textBookName.getText().toString();
                     String novoAutor = textAutor.getText().toString();
                     String novoEditora = textEditora.getText().toString();
-                    String novoNumPag = textNumPag.getText().toString();
+                    String novoGenero = textGenero.getText().toString();
                     String novoOndeEnc = textOndeEnc.getText().toString();
 
                     if (novoTitulo.isEmpty() || novoAutor.isEmpty() || novoEditora.isEmpty()) {
                         Toast.makeText(context, "Preencha os campos obrigatórios (*)", Toast.LENGTH_SHORT).show();
                     } else {
-                        if (novoTitulo.equals(titulo) && novoAutor.equals(autor) && novoEditora.equals(editora) && novoNumPag.equals(numPag) && novoOndeEnc.equals(ondeEnc)) {
+                        if (novoTitulo.equals(titulo) && novoAutor.equals(autor) && novoEditora.equals(editora) && novoGenero.equals(genero) && novoOndeEnc.equals(ondeEnc)) {
                             Toast.makeText(context, "Sem informações para atualizar", Toast.LENGTH_SHORT).show();
                         } else {
-                            databaseReference.child("LIVROS").child(bookId).setValue(new Book(bookId, titulo, autor, editora, numPag, ondeEnc));
+                            databaseReference.child("LIVROS").child(bookId).setValue(new Book(bookId, titulo, autor, editora, genero, ondeEnc));
                             Toast.makeText(context, "Atualizado!", Toast.LENGTH_SHORT).show();
                             dialog.dismiss();
                         }
