@@ -1,5 +1,7 @@
 package com.example.venus20;
 
+import static android.content.ContentValues.TAG;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -11,7 +13,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.nfc.Tag;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -40,9 +44,8 @@ public class BookListActivity extends AppCompatActivity {
     RecyclerView recyclerViewBook;
     ArrayList<Book> bookArrayList;
     BookRecyclerAdapter adapter;
-
     Button buttonAddBook;
-    FirebaseAuth mAuth;
+    /*FirebaseAuth mAuth;*/
 
 
     @Override
@@ -53,7 +56,7 @@ public class BookListActivity extends AppCompatActivity {
         //Objects.requireNonNull(getSupportActionBar()).hide();
 
         databaseReference = FirebaseDatabase.getInstance().getReference();
-        mAuth = FirebaseAuth.getInstance();
+        /*mAuth = FirebaseAuth.getInstance();*/
 
         recyclerViewBook = findViewById(R.id.recyclerViewBook);
         recyclerViewBook.setHasFixedSize(true);
@@ -68,7 +71,7 @@ public class BookListActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 ViewDialogAdd viewDialogAdd = new ViewDialogAdd();
-                viewDialogAdd.showDialog(BookListActivity.this);
+                viewDialogAdd.showDialog(getApplicationContext());
             }
         });
 
@@ -102,6 +105,7 @@ public class BookListActivity extends AppCompatActivity {
 
     public class ViewDialogAdd {
         public void showDialog(Context context) {
+            Log.d(TAG, "DIALOG ADD");
             final Dialog dialog = new Dialog(context);
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
             dialog.setContentView(R.layout.dialog_add_book);

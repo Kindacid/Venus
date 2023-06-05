@@ -28,12 +28,20 @@
         <activity
             android:name=".AdminActivity"
             android:exported="false" />
-        <activity android:name=".BookListActivity"
+        <activity
+            android:name=".BookListActivity"
             android:exported="false"/>
-        <activity android:name=".OperatorActivity"
+        <activity
+            android:name=".OperatorActivity"
             android:exported="false"/>
         <activity
             android:name=".LoginActivity"
+            android:exported="false"/>
+        <activity
+            android:name=".BookRecyclerAdapter"
+            android:exported="false"/>
+        <activity
+            android:name=".OperatorRecyclerAdapter"
             android:exported="false">
         </activity>
     </application>
