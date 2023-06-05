@@ -71,7 +71,7 @@ public class BookListActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 ViewDialogAdd viewDialogAdd = new ViewDialogAdd();
-                viewDialogAdd.showDialog(getApplicationContext());
+                viewDialogAdd.showDialog(BookListActivity.this);
             }
         });
 
@@ -119,7 +119,7 @@ public class BookListActivity extends AppCompatActivity {
             Button buttonDialogAddBook = dialog.findViewById(R.id.buttonDialogAddBook);
             Button buttonDialogCancelBook = dialog.findViewById(R.id.buttonDialogCancelBook);
 
-           /* buttonDialogAddBook.setText("Adicionado");*/
+           buttonDialogAddBook.setText("Adicionar");
 
             buttonDialogCancelBook.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -142,13 +142,12 @@ public class BookListActivity extends AppCompatActivity {
                         Toast.makeText(context, "Preencha os campos obrigatórios (*)", Toast.LENGTH_SHORT).show();
                     } else {
                         databaseReference.child("LIVROS").child(bookId).setValue(new Book(bookId, titulo, autor, editora, genero, ondeEnc));
-
-
-                        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                        dialog.show();
                     }
+                    dialog.dismiss();
                 }
             });
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            dialog.show();
         }
     }
 }

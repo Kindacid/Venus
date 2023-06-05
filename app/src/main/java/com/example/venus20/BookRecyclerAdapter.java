@@ -21,7 +21,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
-public class BookRecyclerAdapter extends RecyclerView.Adapter<BookRecyclerAdapter.ViewHolder> {
+    public class BookRecyclerAdapter extends RecyclerView.Adapter<BookRecyclerAdapter.ViewHolder> {
 
     Context context;
     ArrayList<Book> bookArrayList;
@@ -49,9 +49,8 @@ public class BookRecyclerAdapter extends RecyclerView.Adapter<BookRecyclerAdapte
         holder.textBookName.setText("Titulo: " + books.getTitulo());
         holder.textAutor.setText("Autor(a): " + books.getAuthor());
         holder.textEditora.setText("Editora: " + books.getEditor());
-        holder.textGenero.setText("Número de Páginas: " + books.getGenero());
+        holder.textGenero.setText("Gênero: " + books.getGenero());
         holder.textOndeEnc.setText("Onde encontrar: " + books.getOndeEnc());
-
         holder.buttonUpdateBook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
