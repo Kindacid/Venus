@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -59,6 +60,8 @@ public class BookListActivity extends AppCompatActivity {
         recyclerViewBook.setLayoutManager(new LinearLayoutManager(this));
 
         bookArrayList = new ArrayList<>();
+        adapter = new BookRecyclerAdapter(BookListActivity.this, bookArrayList);
+        recyclerViewBook.setAdapter(adapter);
 
         buttonAddBook = findViewById(R.id.buttonAddBook);
         buttonAddBook.setOnClickListener(new View.OnClickListener() {
@@ -82,6 +85,7 @@ public class BookListActivity extends AppCompatActivity {
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     Book books = dataSnapshot.getValue(Book.class);
                     bookArrayList.add(books);
+
                 }
                 adapter = new BookRecyclerAdapter(BookListActivity.this, bookArrayList);
                 recyclerViewBook.setAdapter(adapter);
@@ -111,7 +115,7 @@ public class BookListActivity extends AppCompatActivity {
             Button buttonDialogAddBook = dialog.findViewById(R.id.buttonDialogAddBook);
             Button buttonDialogCancelBook = dialog.findViewById(R.id.buttonDialogCancelBook);
 
-            buttonDialogAddBook.setText("Adicionado");
+           /* buttonDialogAddBook.setText("Adicionado");*/
 
             buttonDialogCancelBook.setOnClickListener(new View.OnClickListener() {
                 @Override
