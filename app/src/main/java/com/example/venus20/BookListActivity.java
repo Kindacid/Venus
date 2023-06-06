@@ -10,10 +10,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.nfc.Tag;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -27,17 +25,13 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Objects;
+//classes necessarias para interagir com o Firebase
 
-public class BookListActivity extends AppCompatActivity {
+public abstract class BookListActivity extends AppCompatActivity {
+    //declara a classe Book... que estende a classe App... para criar uma atividade do android
 
     DatabaseReference databaseReference;
 
@@ -46,12 +40,16 @@ public class BookListActivity extends AppCompatActivity {
     BookRecyclerAdapter adapter;
     Button buttonAddBook;
     /*FirebaseAuth mAuth;*/
+    //declaram as variaveis usadas na classe, incluindo a referencia do banco de dados.
+    //tambem inclui o botão para adicionar os livros dentro do aplicativo
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_books_list);
+        //o método onCreate é sempre chamado quando a atividade é criada.
+        //ele serve para configurar o layout da atividade para o arquivo xml.
 
         //Objects.requireNonNull(getSupportActionBar()).hide();
 
@@ -61,8 +59,11 @@ public class BookListActivity extends AppCompatActivity {
         recyclerViewBook = findViewById(R.id.recyclerViewBook);
         recyclerViewBook.setHasFixedSize(true);
         recyclerViewBook.setLayoutManager(new LinearLayoutManager(this));
-
         bookArrayList = new ArrayList<>();
+        //faz referencia ao RecyclerView no layout e configuram seu layoutManager como um LinearLayoutManager para exibir os itens em uma lista vertical
+
+        bookArrayList.add(new Book("Não sei o id", "Não fale com estranhos", "dark side", "Harlan Coben", "suspense policial", "Livraria Saraivah"));
+
         adapter = new BookRecyclerAdapter(BookListActivity.this, bookArrayList);
         recyclerViewBook.setAdapter(adapter);
 
@@ -71,7 +72,7 @@ public class BookListActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 ViewDialogAdd viewDialogAdd = new ViewDialogAdd();
-                viewDialogAdd.showDialog(BookListActivity.this);
+                viewDialogAdd.showDialog(getApplicationContext());
             }
         });
 
@@ -102,6 +103,11 @@ public class BookListActivity extends AppCompatActivity {
         });
     }
 
+    protected void OnCreat(Bundle savedInstance) {
+    }
+
+    protected abstract void onCreat(Bundle savedInstanceState);
+
 
     public class ViewDialogAdd {
         public void showDialog(Context context) {
@@ -119,7 +125,7 @@ public class BookListActivity extends AppCompatActivity {
             Button buttonDialogAddBook = dialog.findViewById(R.id.buttonDialogAddBook);
             Button buttonDialogCancelBook = dialog.findViewById(R.id.buttonDialogCancelBook);
 
-           buttonDialogAddBook.setText("Adicionar");
+           /* buttonDialogAddBook.setText("Adicionado");*/
 
             buttonDialogCancelBook.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -142,12 +148,13 @@ public class BookListActivity extends AppCompatActivity {
                         Toast.makeText(context, "Preencha os campos obrigatórios (*)", Toast.LENGTH_SHORT).show();
                     } else {
                         databaseReference.child("LIVROS").child(bookId).setValue(new Book(bookId, titulo, autor, editora, genero, ondeEnc));
+
+
+                        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                        dialog.show();
                     }
-                    dialog.dismiss();
                 }
             });
-            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-            dialog.show();
         }
     }
 }
