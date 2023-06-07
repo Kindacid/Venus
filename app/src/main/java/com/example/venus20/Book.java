@@ -34,7 +34,7 @@ public class Book {
         return titulo;
     }
 
-    public void setTitulo(String name) {
+    public void setTitulo(String titulo) {
         this.titulo = titulo;
     }
 

@@ -44,18 +44,18 @@ import java.util.ArrayList;
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-        Book books = bookArrayList.get(position);
+        Book book = bookArrayList.get(position);
 
-        holder.textBookName.setText("Titulo: " + books.getTitulo());
-        holder.textAutor.setText("Autor(a): " + books.getAuthor());
-        holder.textEditora.setText("Editora: " + books.getEditor());
-        holder.textGenero.setText("Gênero: " + books.getGenero());
-        holder.textOndeEnc.setText("Onde encontrar: " + books.getOndeEnc());
+        holder.textBookNameItem.setText("Titulo: " + book.getTitulo());
+        holder.textAutorItem.setText("Autor(a): " + book.getAuthor());
+        holder.textEditoraItem.setText("Editora: " + book.getEditor());
+        holder.textGeneroItem.setText("Gênero: " + book.getGenero());
+        holder.textOndeEncItem.setText("Onde encontrar: " + book.getOndeEnc());
         holder.buttonUpdateBook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ViewDialogAddUpdate viewDialogAddUpdate = new ViewDialogAddUpdate();
-                viewDialogAddUpdate.showDialog(context, books.getBookID(), books.getTitulo(), books.getAuthor(), books.getEditor(), books.getGenero(), books.getOndeEnc());
+                viewDialogAddUpdate.showDialog(context, book.getBookID(), book.getTitulo(), book.getAuthor(), book.getEditor(), book.getGenero(), book.getOndeEnc());
             }
         });
 
@@ -63,7 +63,7 @@ import java.util.ArrayList;
             @Override
             public void onClick(View v) {
                 ViewDialogConfirmDelete viewDialogConfirmDelete = new ViewDialogConfirmDelete();
-                viewDialogConfirmDelete.showDialog(context, books.getBookID());
+                viewDialogConfirmDelete.showDialog(context, book.getBookID());
             }
         });
     }
@@ -75,11 +75,11 @@ import java.util.ArrayList;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView textBookName;
-        TextView textAutor;
-        TextView textEditora;
-        TextView textGenero;
-        TextView textOndeEnc;
+        TextView textBookNameItem;
+        TextView textAutorItem;
+        TextView textEditoraItem;
+        TextView textGeneroItem;
+        TextView textOndeEncItem;
 
         Button buttonDeleteBook;
         Button buttonUpdateBook;
@@ -88,11 +88,11 @@ import java.util.ArrayList;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            textBookName = itemView.findViewById(R.id.textBookName);
-            textAutor = itemView.findViewById(R.id.textAutor);
-            textEditora = itemView.findViewById(R.id.textEditora);
-            textGenero = itemView.findViewById(R.id.textGenero);
-            textOndeEnc = itemView.findViewById(R.id.textOndeEnc);
+            textBookNameItem = itemView.findViewById(R.id.textBookNameItem);
+            textAutorItem = itemView.findViewById(R.id.textAutorItem);
+            textEditoraItem = itemView.findViewById(R.id.textEditoraItem);
+            textGeneroItem = itemView.findViewById(R.id.textGeneroItem);
+            textOndeEncItem = itemView.findViewById(R.id.textOndeEncItem);
 
 
             buttonDeleteBook = itemView.findViewById(R.id.buttonDeleteBook);
@@ -106,18 +106,18 @@ import java.util.ArrayList;
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
             dialog.setContentView(R.layout.dialog_add_book);
 
-            EditText textBookName = dialog.findViewById(R.id.textBookName);
-            EditText textAutor = dialog.findViewById(R.id.textAutor);
-            EditText textEditora = dialog.findViewById(R.id.textEditora);
-            EditText textGenero = dialog.findViewById(R.id.textGenero);
-            EditText textOndeEnc = dialog.findViewById(R.id.textOndeEnc);
+            EditText textBookNameDialog = dialog.findViewById(R.id.textBookNameDialog);
+            EditText textAutorDialog = dialog.findViewById(R.id.textAutorDialog);
+            EditText textEditoraDialog = dialog.findViewById(R.id.textEditoraDialog);
+            EditText textGeneroDialog = dialog.findViewById(R.id.textGeneroDialog);
+            EditText textOndeEncDialog = dialog.findViewById(R.id.textOndeEncDialog);
 
 
-            textBookName.setText(titulo);
-            textAutor.setText(autor);
-            textEditora.setText(editora);
-            textGenero.setText(genero);
-            textOndeEnc.setText(ondeEnc);
+            textBookNameDialog.setText(titulo);
+            textAutorDialog.setText(autor);
+            textEditoraDialog.setText(editora);
+            textGeneroDialog.setText(genero);
+            textOndeEncDialog.setText(ondeEnc);
 
             Button buttonDialogAddBook = dialog.findViewById(R.id.buttonDialogAddBook);
             Button buttonDialogCancelBook = dialog.findViewById(R.id.buttonDialogCancelBook);
@@ -133,11 +133,11 @@ import java.util.ArrayList;
             buttonDialogAddBook.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    String novoTitulo = textBookName.getText().toString();
-                    String novoAutor = textAutor.getText().toString();
-                    String novoEditora = textEditora.getText().toString();
-                    String novoGenero = textGenero.getText().toString();
-                    String novoOndeEnc = textOndeEnc.getText().toString();
+                    String novoTitulo = textBookNameDialog.getText().toString();
+                    String novoAutor = textAutorDialog.getText().toString();
+                    String novoEditora = textEditoraDialog.getText().toString();
+                    String novoGenero = textGeneroDialog.getText().toString();
+                    String novoOndeEnc = textOndeEncDialog.getText().toString();
 
                     if (novoTitulo.isEmpty() || novoAutor.isEmpty() || novoEditora.isEmpty()) {
                         Toast.makeText(context, "Preencha os campos obrigatórios (*)", Toast.LENGTH_SHORT).show();
@@ -145,7 +145,7 @@ import java.util.ArrayList;
                         if (novoTitulo.equals(titulo) && novoAutor.equals(autor) && novoEditora.equals(editora) && novoGenero.equals(genero) && novoOndeEnc.equals(ondeEnc)) {
                             Toast.makeText(context, "Sem informações para atualizar", Toast.LENGTH_SHORT).show();
                         } else {
-                            databaseReference.child("LIVROS").child(bookId).setValue(new Book(bookId, titulo, autor, editora, genero, ondeEnc));
+                            databaseReference.child("LIVROS").child(bookId).setValue(new Book(bookId, novoTitulo, novoAutor, novoAutor, novoGenero, novoOndeEnc));
                             Toast.makeText(context, "Atualizado!", Toast.LENGTH_SHORT).show();
                             dialog.dismiss();
                         }

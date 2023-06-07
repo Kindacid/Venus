@@ -57,7 +57,7 @@
             android:layout_margin="3dp"
             android:layout_weight="1"
             android:background="@drawable/btn_round_red"
-            android:text="DELETE"
+            android:text="Deletar"
             android:textColor="@color/black" />
 
         <androidx.appcompat.widget.AppCompatButton
@@ -67,7 +67,7 @@
             android:layout_margin="3dp"
             android:layout_weight="1"
             android:background="@drawable/btn_round_blue"
-            android:text="UPDATE"
+            android:text="Atualizar"
             android:textColor="@color/black" />
 
     </LinearLayout>

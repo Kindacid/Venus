@@ -15,7 +15,7 @@
         android:background="#B3D5D2">
 
          <EditText
-            android:id="@+id/textBookName"
+            android:id="@+id/textBookNameDialog"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_gravity="center"
@@ -31,7 +31,7 @@
             android:textStyle="bold|italic" />
 
         <EditText
-            android:id="@+id/textAutor"
+            android:id="@+id/textAutorDialog"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_gravity="center"
@@ -47,7 +47,7 @@
             android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/textEditora"
+            android:id="@+id/textEditoraDialog"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_gravity="center"
@@ -63,7 +63,7 @@
             android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/textGenero"
+            android:id="@+id/textGeneroDialog"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_gravity="center"
@@ -79,7 +79,7 @@
             android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/textOndeEnc"
+            android:id="@+id/textOndeEncDialog"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_gravity="center"

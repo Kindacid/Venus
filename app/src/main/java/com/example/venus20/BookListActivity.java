@@ -70,7 +70,7 @@ public class BookListActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 ViewDialogAdd viewDialogAdd = new ViewDialogAdd();
-                viewDialogAdd.showDialog(getApplicationContext());
+                viewDialogAdd.showDialog(BookListActivity.this);
             }
         });
 
@@ -109,11 +109,11 @@ public class BookListActivity extends AppCompatActivity {
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
             dialog.setContentView(R.layout.dialog_add_book);
 
-            EditText texBookName = dialog.findViewById(R.id.textBookName);
-            EditText textAutor = dialog.findViewById(R.id.textAutor);
-            EditText textEditora = dialog.findViewById(R.id.textEditora);
-            EditText textGenero = dialog.findViewById(R.id.textGenero);
-            EditText textOndeEnc = dialog.findViewById(R.id.textOndeEnc);
+            EditText texBookName = dialog.findViewById(R.id.textBookNameDialog);
+            EditText textAutor = dialog.findViewById(R.id.textAutorDialog);
+            EditText textEditora = dialog.findViewById(R.id.textEditoraDialog);
+            EditText textGenero = dialog.findViewById(R.id.textGeneroDialog);
+            EditText textOndeEnc = dialog.findViewById(R.id.textOndeEncDialog);
 
             Button buttonDialogAddBook = dialog.findViewById(R.id.buttonDialogAddBook);
             Button buttonDialogCancelBook = dialog.findViewById(R.id.buttonDialogCancelBook);
@@ -142,13 +142,12 @@ public class BookListActivity extends AppCompatActivity {
                         Toast.makeText(context, "Preencha os campos obrigatórios (*)", Toast.LENGTH_SHORT).show();
                     } else {
                         databaseReference.child("LIVROS").child(bookId).setValue(new Book(bookId, titulo, autor, editora, genero, ondeEnc));
-
-
-                        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                        dialog.show();
+                        dialog.dismiss();
                     }
                 }
             });
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            dialog.show();
         }
     }
 }
