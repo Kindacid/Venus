@@ -33,7 +33,8 @@ public class LoginActivity extends AppCompatActivity {
     LoginActivityBinding binding;
     private FirebaseAuth mAuth;
     private  DatabaseReference databaseReference;
-
+    String userID;
+    boolean isAdmin;
 
     @Override
     public void onStart() {
@@ -128,6 +129,7 @@ public class LoginActivity extends AppCompatActivity {
                     FirebaseUser user = mAuth.getCurrentUser();
                     limparCampos();
                     if (user != null) {
+                        String userID = user.getUid();
                         DatabaseReference userRef = databaseReference.child("USERS").child(user.getUid());
                         userRef.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
@@ -149,7 +151,7 @@ public class LoginActivity extends AppCompatActivity {
                                         }
                                     }
                                 }
-                                }
+                            }
 
                             @Override
                             public void onCancelled(@NonNull DatabaseError error) {

@@ -16,6 +16,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -26,11 +28,18 @@ import java.util.ArrayList;
     Context context;
     ArrayList<Book> bookArrayList;
     DatabaseReference databaseReference;
+    private FirebaseAuth mAuth;
+    private String userID;
 
     public BookRecyclerAdapter(Context context, ArrayList<Book> bookArrayList) {
         this.context = context;
         this.bookArrayList = bookArrayList;
         databaseReference = FirebaseDatabase.getInstance().getReference();
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = mAuth.getCurrentUser();
+        if (user != null){
+            userID = user.getUid();
+        } else {}
     }
 
     @NonNull
@@ -122,7 +131,7 @@ import java.util.ArrayList;
             Button buttonDialogAddBook = dialog.findViewById(R.id.buttonDialogAddBook);
             Button buttonDialogCancelBook = dialog.findViewById(R.id.buttonDialogCancelBook);
 
-            buttonDialogAddBook.setText("Atualizado");
+            buttonDialogAddBook.setText("Atualizar");
             buttonDialogCancelBook.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -145,7 +154,7 @@ import java.util.ArrayList;
                         if (novoTitulo.equals(titulo) && novoAutor.equals(autor) && novoEditora.equals(editora) && novoGenero.equals(genero) && novoOndeEnc.equals(ondeEnc)) {
                             Toast.makeText(context, "Sem informações para atualizar", Toast.LENGTH_SHORT).show();
                         } else {
-                            databaseReference.child("LIVROS").child(bookId).setValue(new Book(bookId, novoTitulo, novoAutor, novoAutor, novoGenero, novoOndeEnc));
+                            databaseReference.child("LIVROS").child(bookId).setValue(new Book(bookId, novoTitulo, novoAutor, novoAutor, novoGenero, novoOndeEnc, userID));
                             Toast.makeText(context, "Atualizado!", Toast.LENGTH_SHORT).show();
                             dialog.dismiss();
                         }

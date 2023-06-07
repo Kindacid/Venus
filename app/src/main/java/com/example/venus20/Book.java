@@ -7,19 +7,26 @@ public class Book {
     private String genero;
     private String ondeEnc;
     private String bookID;
+    private String operatorID;
 
     public Book(){}
 
-    public Book(String bookID, String titulo, String editor, String author, String genero, String ondeEnc) {
+    public Book(String bookID, String titulo, String editor, String author, String genero, String ondeEnc, String operatorID) {
         this.bookID = bookID;
         this.titulo = titulo;
         this.editor = editor;
         this.author = author;
         this.genero = genero;
         this.ondeEnc = ondeEnc;
+        this.operatorID = operatorID;
     }
 
-    public Book(String titulo, String autor, String editora, String numPag, String ondeEnc) {
+    public String getOperatorID() {
+        return operatorID;
+    }
+
+    public void setOperatorID(String operatorID) {
+        this.operatorID = operatorID;
     }
 
     public String getBookID() {

@@ -21,10 +21,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -34,13 +37,13 @@ import java.util.Date;
 public class BookListActivity extends AppCompatActivity {
     //declara a classe Book... que estende a classe App... para criar uma atividade do android
 
+    FirebaseAuth mAuth;
     DatabaseReference databaseReference;
-
+    String userID;
     RecyclerView recyclerViewBook;
     ArrayList<Book> bookArrayList;
     BookRecyclerAdapter adapter;
     Button buttonAddBook;
-    /*FirebaseAuth mAuth;*/
     //declaram as variaveis usadas na classe, incluindo a referencia do banco de dados.
     //tambem inclui o botão para adicionar os livros dentro do aplicativo.
 
@@ -52,9 +55,14 @@ public class BookListActivity extends AppCompatActivity {
         //o método onCreate é sempre chamado quando a atividade é criada.
         //ele serve para configurar o layout da atividade para o arquivo xml.
 
-
         databaseReference = FirebaseDatabase.getInstance().getReference();
-        /*mAuth = FirebaseAuth.getInstance();*/
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = mAuth.getCurrentUser();
+        if (user != null){
+            userID = user.getUid();
+        }else {}
+
+        Query query = databaseReference.child("LIVROS").orderByChild("operatorID").equalTo(userID);
 
         recyclerViewBook = findViewById(R.id.recyclerViewBook);
         recyclerViewBook.setHasFixedSize(true);
@@ -64,6 +72,23 @@ public class BookListActivity extends AppCompatActivity {
 
         adapter = new BookRecyclerAdapter(BookListActivity.this, bookArrayList);
         recyclerViewBook.setAdapter(adapter);
+
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                bookArrayList.clear();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    Book book = snapshot.getValue(Book.class);
+                    bookArrayList.add(book);
+                }
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         buttonAddBook = findViewById(R.id.buttonAddBook);
         buttonAddBook.setOnClickListener(new View.OnClickListener() {
@@ -141,7 +166,8 @@ public class BookListActivity extends AppCompatActivity {
                     if (titulo.isEmpty() || autor.isEmpty() || editora.isEmpty()) {
                         Toast.makeText(context, "Preencha os campos obrigatórios (*)", Toast.LENGTH_SHORT).show();
                     } else {
-                        databaseReference.child("LIVROS").child(bookId).setValue(new Book(bookId, titulo, autor, editora, genero, ondeEnc));
+                        String operatorID = userID;
+                        databaseReference.child("LIVROS").child(bookId).setValue(new Book(bookId, titulo, autor, editora, genero, ondeEnc, operatorID));
                         dialog.dismiss();
                     }
                 }

@@ -14,9 +14,15 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class OperatorActivity extends AppCompatActivity {
     ScriptGroup.Binding binding;
+    DatabaseReference databaseReference;
+    private FirebaseAuth mAuth;
+    private  String userID;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -26,6 +32,12 @@ public class OperatorActivity extends AppCompatActivity {
         Log.d(TAG, "Cheguei");
 
         Button buttonBookOp = findViewById(R.id.buttonBookOp);
+
+        databaseReference = FirebaseDatabase.getInstance().getReference();
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        userID = user.getUid();
+
         buttonBookOp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
