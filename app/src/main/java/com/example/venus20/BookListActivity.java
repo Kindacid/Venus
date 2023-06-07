@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -30,7 +31,7 @@ import java.util.ArrayList;
 import java.util.Date;
 //classes necessarias para interagir com o Firebase
 
-public abstract class BookListActivity extends AppCompatActivity {
+public class BookListActivity extends AppCompatActivity {
     //declara a classe Book... que estende a classe App... para criar uma atividade do android
 
     DatabaseReference databaseReference;
@@ -41,7 +42,7 @@ public abstract class BookListActivity extends AppCompatActivity {
     Button buttonAddBook;
     /*FirebaseAuth mAuth;*/
     //declaram as variaveis usadas na classe, incluindo a referencia do banco de dados.
-    //tambem inclui o botão para adicionar os livros dentro do aplicativo
+    //tambem inclui o botão para adicionar os livros dentro do aplicativo.
 
 
     @Override
@@ -51,7 +52,6 @@ public abstract class BookListActivity extends AppCompatActivity {
         //o método onCreate é sempre chamado quando a atividade é criada.
         //ele serve para configurar o layout da atividade para o arquivo xml.
 
-        //Objects.requireNonNull(getSupportActionBar()).hide();
 
         databaseReference = FirebaseDatabase.getInstance().getReference();
         /*mAuth = FirebaseAuth.getInstance();*/
@@ -61,8 +61,6 @@ public abstract class BookListActivity extends AppCompatActivity {
         recyclerViewBook.setLayoutManager(new LinearLayoutManager(this));
         bookArrayList = new ArrayList<>();
         //faz referencia ao RecyclerView no layout e configuram seu layoutManager como um LinearLayoutManager para exibir os itens em uma lista vertical
-
-        bookArrayList.add(new Book("Não sei o id", "Não fale com estranhos", "dark side", "Harlan Coben", "suspense policial", "Livraria Saraivah"));
 
         adapter = new BookRecyclerAdapter(BookListActivity.this, bookArrayList);
         recyclerViewBook.setAdapter(adapter);
@@ -103,11 +101,6 @@ public abstract class BookListActivity extends AppCompatActivity {
         });
     }
 
-    protected void OnCreat(Bundle savedInstance) {
-    }
-
-    protected abstract void onCreat(Bundle savedInstanceState);
-
 
     public class ViewDialogAdd {
         public void showDialog(Context context) {
@@ -143,6 +136,7 @@ public abstract class BookListActivity extends AppCompatActivity {
                     String editora = textEditora.getText().toString();
                     String genero = textGenero.getText().toString();
                     String ondeEnc = textOndeEnc.getText().toString();
+                    Intent intent;
 
                     if (titulo.isEmpty() || autor.isEmpty() || editora.isEmpty()) {
                         Toast.makeText(context, "Preencha os campos obrigatórios (*)", Toast.LENGTH_SHORT).show();
