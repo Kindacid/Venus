@@ -6,12 +6,17 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.venus20.databinding.LoginActivityBinding;
@@ -35,6 +40,7 @@ public class LoginActivity extends AppCompatActivity {
     private  DatabaseReference databaseReference;
     String userID;
     boolean isAdmin;
+    TextView recCred;
 
     @Override
     public void onStart() {
@@ -48,6 +54,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_activity);
+
 
         databaseReference = FirebaseDatabase.getInstance().getReference();
 
@@ -68,6 +75,14 @@ public class LoginActivity extends AppCompatActivity {
                 }catch(Exception e){
                     Toast.makeText(getApplicationContext(), "Credenciais inválidas", Toast.LENGTH_LONG).show();
                 }
+            }
+        });
+        recCred = findViewById(R.id.recCredLogin);
+        recCred.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ViewDialogRecCred viewDialogRecCred = new ViewDialogRecCred();
+                viewDialogRecCred.sowDialog(LoginActivity.this);
             }
         });
     }
@@ -174,5 +189,28 @@ public class LoginActivity extends AppCompatActivity {
                 binding.editPassword.setText("");
             }
         });
+    }
+
+
+    public class ViewDialogRecCred{
+        public void sowDialog(Context context){
+            final Dialog dialog = new Dialog(context);
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            dialog.setContentView(R.layout.dialog_rec_credencial);
+
+            EditText textRecName = dialog.findViewById(R.id.textRecName);
+            EditText textRecEmail = dialog.findViewById(R.id.textRecEmail);
+
+            Button buttonRecEnviar = dialog.findViewById(R.id.buttonRecEnviar);
+
+            buttonRecEnviar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(context, "Email enviado! Admin entrará em contato.", Toast.LENGTH_SHORT).show();
+                    dialog.dismiss();
+                }
+            });
+            dialog.show();
+        }
     }
 }

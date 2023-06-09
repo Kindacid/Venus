@@ -8,11 +8,18 @@
     android:background="#814340"
     tools:context=".SplashActivity">
 
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="match_parent"
+        android:layout_height="346dp"
+        android:layout_marginTop="60sp"
+        app:srcCompat="@mipmap/venus_logo_foreground" />
+
     <TextView
         android:id="@+id/textSplash"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="303dp"
+        android:layout_marginTop="30dp"
         android:fontFamily="@font/bronatte_regular"
         android:gravity="center"
         android:text="Bem vindo a\nVenus Library"

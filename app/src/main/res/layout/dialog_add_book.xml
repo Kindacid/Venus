@@ -22,7 +22,7 @@
             android:layout_margin="3dp"
             android:background="@drawable/dialog_add_opr_bg"
             android:gravity="center"
-            android:hint="Nome do Livro"
+            android:hint="*Nome do Livro"
             android:inputType="text"
             android:padding="5dp"
             android:textColor="@android:color/white"
@@ -38,7 +38,7 @@
             android:layout_margin="3dp"
             android:background="@drawable/dialog_add_opr_bg"
             android:gravity="center"
-            android:hint="Autor"
+            android:hint="*Autor"
             android:inputType="text"
             android:padding="5dp"
             android:textColor="@android:color/white"
@@ -54,7 +54,7 @@
             android:layout_margin="3dp"
             android:background="@drawable/dialog_add_opr_bg"
             android:gravity="center"
-            android:hint="Editora"
+            android:hint="*Editora"
             android:inputType="text"
             android:padding="5dp"
             android:textColor="@android:color/white"
@@ -94,7 +94,7 @@
             android:textSize="18sp"
             android:textStyle="bold" />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/buttonDialogAddBook"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -105,7 +105,7 @@
             android:textSize="20sp"
             android:textStyle="bold|italic" />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/buttonDialogCancelBook"
             android:layout_width="match_parent"
             android:layout_height="50sp"
