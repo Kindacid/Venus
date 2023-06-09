@@ -2,6 +2,8 @@ package com.example.venus20;
 
 import static android.content.ContentValues.TAG;
 
+import static java.nio.file.Paths.get;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -21,6 +23,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -32,6 +36,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Map;
 //classes necessarias para interagir com o Firebase
 
 public class BookListActivity extends AppCompatActivity {
@@ -60,7 +65,29 @@ public class BookListActivity extends AppCompatActivity {
         FirebaseUser user = mAuth.getCurrentUser();
         if (user != null){
             userID = user.getUid();
-        }else {}
+            DatabaseReference userRef = databaseReference.child("USERS").child(userID);
+            userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (snapshot.exists()){
+                        Map<String,Object> userData = (Map<String, Object>) snapshot.getValue();
+                        if (userData != null){
+                            boolean isAdmin = (boolean) userData.get("admin");
+                            if(isAdmin){
+                                fetchAllBook();
+                            } else{
+                                fetchOperatorBooks(userID);
+                            }
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    Toast.makeText(BookListActivity.this, "Erro ao acessar o banco de dados", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
 
         Query query = databaseReference.child("LIVROS").orderByChild("operatorID").equalTo(userID);
 
@@ -167,13 +194,85 @@ public class BookListActivity extends AppCompatActivity {
                         Toast.makeText(context, "Preencha os campos obrigatórios (*)", Toast.LENGTH_SHORT).show();
                     } else {
                         String operatorID = userID;
-                        databaseReference.child("LIVROS").child(bookId).setValue(new Book(bookId, titulo, autor, editora, genero, ondeEnc, operatorID));
-                        dialog.dismiss();
+                        DatabaseReference livroRef = databaseReference.child("LIVROS").child(bookId);
+                        livroRef.setValue(new Book(bookId, titulo, autor, editora, genero, ondeEnc, operatorID)).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if(task.isSuccessful()) {
+                                    DatabaseReference userRef = databaseReference.child("USERS").child(userID);
+                                    userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                            if (snapshot.exists()) {
+                                                Map<String, Object> userData = (Map<String, Object>) snapshot.getValue();
+                                                if (userData != null) {
+                                                    boolean isAdmin = (boolean) userData.get("admin");
+                                                    if (isAdmin) {
+                                                        fetchAllBook();
+                                                    } else {
+                                                        fetchOperatorBooks(userID);
+                                                    }
+                                                }
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError error) {
+                                            Toast.makeText(context, "Erro acessando banco de dados", Toast.LENGTH_SHORT).show();
+
+                                        }
+                                    });
+                                }else{
+                                    Toast.makeText(context, "Erro adicionando o livro", Toast.LENGTH_SHORT).show();
+                                }
+                                dialog.dismiss();
+                            }
+                        });
                     }
+
                 }
             });
             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             dialog.show();
         }
+
+    }
+    private void fetchOperatorBooks(String operatorID){
+        Query query = databaseReference.child("LIVROS").orderByChild("operatorID").equalTo(operatorID);
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                bookArrayList.clear();
+                for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    Book book = snapshot.getValue(Book.class);
+                    bookArrayList.add(book);
+                }
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+    private void fetchAllBook(){
+        DatabaseReference bookRef = databaseReference.child("LIVROS");
+        bookRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                bookArrayList.clear();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    Book book = snapshot.getValue(Book.class);
+                    bookArrayList.add(book);
+                }
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 }
