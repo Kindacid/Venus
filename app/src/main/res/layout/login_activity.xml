@@ -34,7 +34,7 @@
         android:shadowColor="@color/black"
         android:textAlignment="center"
         android:textColor="@color/black"
-        android:textColorHighlight="@color/black"
+        android:textColorHighlight="#C5CAE9"
         android:textColorHint="@color/black"
         android:textColorLink="@color/black" />
 
@@ -50,7 +50,7 @@
         android:shadowColor="@color/black"
         android:textAlignment="center"
         android:textColor="@color/black"
-        android:textColorHighlight="@color/black"
+        android:textColorHighlight="#C5CAE9"
         android:textColorHint="@color/black"
         android:textColorLink="@color/black" />
 

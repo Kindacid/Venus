@@ -4,17 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#D5CEB3"
+    android:background="#DACD9A"
     android:gravity="center"
     android:orientation="vertical"
     tools:context=".OperatorActivity">
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="200dp"
-        android:layout_height="190dp"
-        app:srcCompat="@mipmap/ic_venus"
-        android:contentDescription="TODO" />
+        android:layout_width="330dp"
+        android:layout_height="289dp"
+        android:contentDescription="TODO"
+        app:srcCompat="@mipmap/venus_logo_foreground" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -27,8 +27,7 @@
             android:id="@+id/buttonBookOp"
             android:layout_width="145dp"
             android:layout_height="80dp"
-            android:layout_margin="20dp"
-            android:layout_weight="0"
+            android:layout_margin="5dp"
             android:background="@drawable/btns_round_bg"
             android:drawableStart="@drawable/books_vc"
             android:text="Livros"
@@ -46,7 +45,7 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/buttonLogout"
-            android:layout_width="145dp"
+            android:layout_width="wrap_content"
             android:layout_height="80dp"
             android:background="@drawable/btns_round_bg"
             android:drawableStart="@drawable/logout_vc"
