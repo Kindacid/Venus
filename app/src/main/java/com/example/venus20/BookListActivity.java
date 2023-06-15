@@ -76,7 +76,7 @@ public class BookListActivity extends AppCompatActivity {
                             if(isAdmin){
                                 fetchAllBook();
                             } else{
-                                fetchOperatorBooks(userID);
+                                fetchAllBook();
                             }
                         }
                     }
@@ -210,7 +210,7 @@ public class BookListActivity extends AppCompatActivity {
                                                     if (isAdmin) {
                                                         fetchAllBook();
                                                     } else {
-                                                        fetchOperatorBooks(userID);
+                                                        fetchAllBook();
                                                     }
                                                 }
                                             }
@@ -237,7 +237,7 @@ public class BookListActivity extends AppCompatActivity {
         }
 
     }
-    private void fetchOperatorBooks(String operatorID){
+    /*private void fetchOperatorBooks(String operatorID){
         Query query = databaseReference.child("LIVROS").orderByChild("operatorID").equalTo(operatorID);
         query.addValueEventListener(new ValueEventListener() {
             @Override
@@ -255,7 +255,7 @@ public class BookListActivity extends AppCompatActivity {
 
             }
         });
-    }
+    }*/
     private void fetchAllBook(){
         DatabaseReference bookRef = databaseReference.child("LIVROS");
         bookRef.addValueEventListener(new ValueEventListener() {

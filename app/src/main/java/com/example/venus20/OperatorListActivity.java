@@ -141,7 +141,7 @@ public class OperatorListActivity extends AppCompatActivity {
                                     if (newUser != null){
                                         String operatorID = newUser.getUid();
                                         DatabaseReference operatorUserRef = databaseReference.child("USERS").child(operatorID);
-                                        Operator operator = new Operator(operatorID, name, email, user, password, false);
+                                        Operator operator = new Operator(operatorID, name, user, email, password, false);
                                         operatorUserRef.setValue(operator);
                                     }
                                 } else{

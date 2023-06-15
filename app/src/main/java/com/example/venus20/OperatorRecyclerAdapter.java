@@ -139,7 +139,7 @@ public class OperatorRecyclerAdapter extends RecyclerView.Adapter<OperatorRecycl
                         if(newName.equals(name) && newEmail.equals(email) && newUser.equals(user) && newPassword.equals(password)){
                             Toast.makeText(context, "Sem informações para atualizar", Toast.LENGTH_SHORT).show();
                         }else{
-                            databaseReference.child("USERS").child(id).setValue(new Operator(id, newName, newEmail, newUser, newPassword, false));
+                            databaseReference.child("USERS").child(id).setValue(new Operator(id, newName, newUser, newEmail, newPassword, false));
                             Toast.makeText(context, "Atualizado!", Toast.LENGTH_SHORT).show();
                             dialog.dismiss();
                         }

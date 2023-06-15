@@ -14,7 +14,7 @@
         android:textColor="@color/black"
         android:textStyle="bold"
         android:textSize="18sp"
-        android:text="Nome do Operador"/>
+        android:text="Nome:"/>
 
     <TextView
         android:id="@+id/textEmail"
@@ -23,7 +23,7 @@
         android:textColor="@color/black"
         android:textStyle="bold|italic"
         android:textSize="18sp"
-        android:text="Email do Operador"/>
+        android:text="Email:"/>
 
     <TextView
         android:id="@+id/textUser"
@@ -32,7 +32,7 @@
         android:textColor="@color/black"
         android:textStyle="bold|italic"
         android:textSize="18sp"
-        android:text="Usuário do operador"/>
+        android:text="Usuário:"/>
 
     <TextView
         android:id="@+id/textPassword"
@@ -41,7 +41,7 @@
         android:textColor="@color/black"
         android:textStyle="bold|italic"
         android:textSize="18sp"
-        android:text="Senha do Operador"/>
+        android:text="Senha:"/>
 
     <LinearLayout
         android:layout_width="match_parent"
