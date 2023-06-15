@@ -157,6 +157,7 @@ import java.util.ArrayList;
                             databaseReference.child("LIVROS").child(bookId).setValue(new Book(bookId, novoTitulo, novoAutor, novoAutor, novoGenero, novoOndeEnc, userID));
                             Toast.makeText(context, "Atualizado!", Toast.LENGTH_SHORT).show();
                             dialog.dismiss();
+                            notifyDataSetChanged();
                         }
 
                     }
@@ -189,6 +190,7 @@ import java.util.ArrayList;
                         databaseReference.child("LIVROS").child(bookId).removeValue();
                         Toast.makeText(context, "Livro Removido", Toast.LENGTH_SHORT).show();
                         dialog.dismiss();
+                        notifyDataSetChanged();
                     }
                 });
 
